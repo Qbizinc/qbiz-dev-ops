@@ -13,7 +13,6 @@ sudo yum update -y
 sudo yum install -y python3 python3-pip git jq # jq for parsing secrets, git for repo, aws-cli should be present on EC2
 
 # Install specific dbt-snowflake version using pip3
-# The version is passed in as a Terraform variable 'dbt_snowflake_version'
 echo "Installing dbt-snowflake version ${dbt_snowflake_version}..."
 sudo pip3 install dbt-snowflake==${dbt_snowflake_version} --upgrade
 
@@ -24,8 +23,6 @@ sudo chmod +x /etc/profile.d/add_local_bin.sh
 echo "Added ~/.local/bin to PATH"
 
 # Fetch Snowflake credentials (User/Password) from AWS Secrets Manager
-# The ARN is passed in as Terraform variable 'snowflake_credentials_arn'
-# The AWS Region is passed in as Terraform variable 'aws_region'
 echo "Fetching Snowflake credentials (User/Password) from Secrets Manager ARN: ${snowflake_credentials_arn}"
 SECRET_JSON=$(aws secretsmanager get-secret-value --secret-id "${snowflake_credentials_arn}" --region "${aws_region}" --query SecretString --output text)
 
@@ -36,7 +33,6 @@ if [ -z "$SECRET_JSON" ]; then
 fi
 
 # Extract User and Password into SHELL variables using jq
-# NOTE: Using .username and .password based on user's last script version. Ensure these keys match your secret!
 SNOWFLAKE_USER=$(echo "$SECRET_JSON" | jq -r .username)
 SNOWFLAKE_PASSWORD=$(echo "$SECRET_JSON" | jq -r .password)
 

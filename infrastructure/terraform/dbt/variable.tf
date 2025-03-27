@@ -1,13 +1,13 @@
 variable "aws_region" {
   description = "AWS region for deployment"
   type        = string
-  default     = "us-west-2" # Example, change as needed
+  default     = "us-west-2"
 }
 
 variable "instance_type" {
   description = "EC2 instance type for dbt"
   type        = string
-  default     = "t3.micro" # Choose based on workload
+  default     = "t3.micro"
 }
 
 variable "key_name" {
@@ -18,7 +18,6 @@ variable "key_name" {
 variable "vpc_id" {
   description = "ID of the VPC where the instance will be launched"
   type        = string
-  # default = "vpc-xxxxxxxxxxxxxxxxx" # Provide default or fetch dynamically
 }
 
 variable "dbt_project_git_url" {
