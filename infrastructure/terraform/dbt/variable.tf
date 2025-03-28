@@ -34,7 +34,7 @@ variable "dbt_target" {
 variable "dbt_snowflake_version" {
   description = "Specific version of dbt-snowflake to install (e.g., 1.6.2). Pin this!"
   type        = string
-  default = "9.7.2"
+  default = "1.9.2"
 }
 
 # --- Snowflake Specific Variables ---
